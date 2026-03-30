@@ -50,7 +50,9 @@ def adicionar():
     return render_template('adicionar.html')
 
 # Esse trecho cria o arquivo do banco de dados na primeira vez que você rodar
+# Isso garante que as tabelas sejam criadas mesmo usando Gunicorn no Render
+with app.app_context():
+    db.create_all()
+
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)
