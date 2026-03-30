@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | Mundo das Ofertas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-blue-900 p-10">
+    <div class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-2xl">
+        <h1 class="text-2xl font-bold mb-6 text-center text-blue-900 underline">Cadastrar Oferta</h1>
+        <form method="POST">
+            <input type="text" name="nome" placeholder="Nome do Produto" class="w-full border p-3 rounded mb-4" required>
+            <input type="text" name="preco" placeholder="Preço (ex: 24,00)" class="w-full border p-3 rounded mb-4" required>
+            <input type="text" name="img_url" placeholder="URL da Foto do Produto" class="w-full border p-3 rounded mb-4" required>
+            <input type="text" name="link_afiliado" placeholder="Seu Link de Afiliado" class="w-full border p-3 rounded mb-4" required>
+            <input type="text" name="categoria" placeholder="Categoria (ex: Tech)" class="w-full border p-3 rounded mb-4">
+            <button class="w-full bg-green-500 text-white font-bold py-4 rounded-lg hover:bg-green-600 uppercase">Salvar Produto</button>
+        </form>
+    </div>
+</body>
+</html>
