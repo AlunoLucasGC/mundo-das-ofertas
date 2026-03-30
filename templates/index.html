@@ -7,20 +7,31 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100">
-    <header class="bg-yellow-400 p-6 shadow-md border-b-4 border-blue-600 text-center">
-        <h1 class="text-3xl font-black text-blue-800 uppercase italic">Mundo das Ofertas</h1>
-        <p class="font-bold text-blue-900">🔥 Melhores Achadinhos de Hoje!</p>
+    <header class="bg-yellow-400 shadow-md border-b-4 border-blue-600 text-center">
+        <h1 class="text-3xl font-black text-blue-800 uppercase italic p-6">Mundo das Ofertas</h1>
+        <p class="font-bold text-blue-900 pb-4">🔥 Melhores Achadinhos de Hoje!</p>
     </header>
 
     <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
         {% for p in produtos %}
-        <div class="bg-white p-4 rounded-xl shadow-md border border-gray-200">
-            <img src="{{ p.img_url }}" class="w-full h-48 object-contain mb-4">
-            <h2 class="font-bold text-lg leading-tight">{{ p.nome }}</h2>
-            <p class="text-2xl font-black text-green-600 mt-2">R$ {{ p.preco }}</p>
-            <a href="{{ p.link_afiliado }}" target="_blank" class="block bg-yellow-400 text-blue-900 text-center font-bold py-3 rounded-lg mt-4 hover:bg-yellow-500">
-                VER NO MERCADO LIVRE
-            </a>
+        <div class="bg-white p-4 rounded-xl shadow-md border border-gray-200 flex flex-col justify-between">
+            <div>
+                <img src="{{ p.img_url }}" class="w-full h-48 object-contain mb-4">
+                <h2 class="font-bold text-lg leading-tight">{{ p.nome }}</h2>
+                <p class="text-2xl font-black text-green-600 mt-2">R$ {{ p.preco }}</p>
+            </div>
+            
+            <div>
+                <a href="{{ p.link_afiliado }}" target="_blank" class="block bg-yellow-400 text-blue-900 text-center font-bold py-3 rounded-lg mt-4 hover:bg-yellow-500">
+                    VER NO MERCADO LIVRE
+                </a>
+
+                <a href="{{ url_for('deletar', id=p.id) }}" 
+                   class="mt-3 block text-red-500 text-xs text-center font-bold hover:underline"
+                   onclick="return confirm('Tem certeza que deseja apagar este produto?')">
+                   [ REMOVER PRODUTO ]
+                </a>
+            </div>
         </div>
         {% endfor %}
     </div>

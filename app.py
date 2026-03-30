@@ -49,6 +49,19 @@ def adicionar():
     
     return render_template('adicionar.html')
 
+# Rota para deletar um produto específico
+@app.route('/deletar/<int:id>')
+def deletar(id):
+    # Procura o produto pelo ID no banco de dados
+    produto_para_deletar = Produto.query.get_or_404(id)
+    
+    try:
+        db.session.delete(produto_para_deletar) # Marca para apagar
+        db.session.commit() # Confirma a exclusão
+        return redirect(url_for('index')) # Volta para a página inicial
+    except:
+        return "Houve um problema ao deletar o produto."
+
 # Esse trecho cria o arquivo do banco de dados na primeira vez que você rodar
 # Isso garante que as tabelas sejam criadas mesmo usando Gunicorn no Render
 with app.app_context():
