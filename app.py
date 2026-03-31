@@ -4,19 +4,14 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-# --- CONFIGURAÇÃO DO BANCO DE DADOS (Lógica Inteligente) ---
-
-# 1. Tenta buscar o link do banco de dados do Render (PostgreSQL)
+# --- CONFIGURAÇÃO DO BANCO DE DADOS ---
 database_url = os.environ.get('DATABASE_URL')
 
 if database_url:
-    # O SQLAlchemy exige que o link comece com 'postgresql://' (com 'ql' no final)
-    # Mas o Render às vezes entrega como 'postgres://'. Aqui a gente corrige isso:
     if database_url.startswith("postgres://"):
         database_url = database_url.replace("postgres://", "postgresql://", 1)
     app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 else:
-    # Se não houver link do Render (você está no seu PC), usa o SQLite local
     basedir = os.path.abspath(os.path.dirname(__file__))
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'ofertas.db')
 
@@ -24,14 +19,14 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# --- MODELO DO PRODUTO ---
+# --- MODELO DO PRODUTO (Limites Aumentados) ---
 class Produto(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(100), nullable=False)
+    nome = db.Column(db.String(500), nullable=False)        # Aumentado para 500
     preco = db.Column(db.String(20), nullable=False)
-    img_url = db.Column(db.String(300), nullable=False)
-    link_afiliado = db.Column(db.String(300), nullable=False)
-    categoria = db.Column(db.String(50))
+    img_url = db.Column(db.String(1000), nullable=False)      # Aumentado para 1000
+    link_afiliado = db.Column(db.String(1000), nullable=False) # Aumentado para 1000
+    categoria = db.Column(db.String(100))
 
 # --- ROTAS ---
 
@@ -47,9 +42,13 @@ def admin():
 
 @app.route('/adicionar', methods=['POST'])
 def adicionar():
+    # CORREÇÃO: Troca vírgula por ponto para não quebrar o cálculo do desconto
+    preco_bruto = request.form['preco']
+    preco_limpo = preco_bruto.replace(',', '.')
+
     novo = Produto(
         nome=request.form['nome'],
-        preco=request.form['preco'],
+        preco=preco_limpo, 
         img_url=request.form['img_url'],
         link_afiliado=request.form['link_afiliado'],
         categoria=request.form['categoria']
@@ -68,8 +67,11 @@ def deletar(id):
     except:
         return "Houve um problema ao deletar o produto."
 
-# Cria o banco e as tabelas automaticamente
+# --- APLICAÇÃO DAS MUDANÇAS NO RENDER ---
 with app.app_context():
+    # ATENÇÃO: Descomente a linha abaixo (tire o #) apenas para o PRÓXIMO push.
+    # Isso vai apagar o banco antigo e criar o novo com os espaços maiores.
+    # db.drop_all() 
     db.create_all()
 
 if __name__ == '__main__':
