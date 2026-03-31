@@ -1,50 +1,9 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Admin | Mundo das Ofertas</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-900 text-white p-6">
-    <div class="max-w-4xl mx-auto">
-        <h1 class="text-3xl font-bold mb-8 text-yellow-400">Gerenciar Ofertas</h1>
-
-        <section class="bg-gray-800 p-6 rounded-xl mb-12 border border-gray-700">
-            <h2 class="text-xl mb-4 font-bold text-blue-400">Cadastrar Nova Oferta</h2>
-            <form action="/adicionar" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input type="text" name="nome" placeholder="Nome do Produto" class="bg-gray-700 p-3 rounded" required>
-                <input type="text" name="preco" placeholder="Preço (ex: 24,00)" class="bg-gray-700 p-3 rounded" required>
-                <input type="text" name="img_url" placeholder="URL da Imagem" class="bg-gray-700 p-3 rounded" required>
-                <input type="text" name="link_afiliado" placeholder="Link do Mercado Livre" class="bg-gray-700 p-3 rounded" required>
-                <input type="text" name="categoria" placeholder="Categoria" class="bg-gray-700 p-3 rounded">
-                <button class="bg-green-600 hover:bg-green-700 font-bold py-3 rounded uppercase">Salvar Produto</button>
-            </form>
-        </section>
-
-        <section>
-            <h2 class="text-xl mb-4 font-bold text-red-400">Produtos Online</h2>
-            <div class="grid grid-cols-1 gap-4">
-                {% for p in produtos %}
-                <div class="bg-gray-800 p-4 rounded-lg flex justify-between items-center border border-gray-700">
-                    <div class="flex items-center gap-4">
-                        <img src="{{ p.img_url }}" class="w-12 h-12 object-contain bg-white rounded">
-                        <div>
-                            <p class="font-bold">{{ p.nome }}</p>
-                            <p class="text-green-400 text-sm italic">R$ {{ p.preco }}</p>
-                        </div>
-                    </div>
-                    <a href="{{ url_for('deletar', id=p.id) }}" 
-                       class="text-red-500 hover:bg-red-500 hover:text-white px-4 py-2 rounded-lg border border-red-500 transition"
-                       onclick="return confirm('Apagar este item?')">Excluir</a>
-                </div>
-                {% endfor %}
-            </div>
-        </section>
-        
-        <div class="mt-10 text-center">
-            <a href="/" class="text-gray-400 underline italic">Ver como o público vê o site</a>
-        </div>
-    </div>
-</body>
-</html>
+<form action="/adicionar" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <input type="text" name="nome" placeholder="Nome do Produto" class="bg-gray-700 p-3 rounded" required shadow-sm>
+    <input type="text" name="preco_antigo" placeholder="Preço Original (ex: 35.49)" class="bg-gray-700 p-3 rounded">
+    <input type="text" name="preco" placeholder="Preço Atual (ex: 27.30)" class="bg-gray-700 p-3 rounded" required>
+    <input type="text" name="img_url" placeholder="URL da Imagem" class="bg-gray-700 p-3 rounded" required>
+    <input type="text" name="link_afiliado" placeholder="Link de Afiliado" class="bg-gray-700 p-3 rounded" required>
+    <input type="text" name="categoria" placeholder="Categoria (Ex: Tech, Gamer, Casa)" class="bg-gray-700 p-3 rounded">
+    <button class="bg-green-600 hover:bg-green-700 font-bold py-3 rounded uppercase col-span-1 md:col-span-2">Salvar Oferta</button>
+</form>

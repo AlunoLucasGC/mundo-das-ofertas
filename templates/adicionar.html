@@ -3,20 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin | Mundo das Ofertas</title>
+    <title>Cadastrar Oferta | Mundo das Ofertas</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="bg-blue-900 p-10">
-    <div class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-2xl">
-        <h1 class="text-2xl font-bold mb-6 text-center text-blue-900 underline">Cadastrar Oferta</h1>
-        <form method="POST">
-            <input type="text" name="nome" placeholder="Nome do Produto" class="w-full border p-3 rounded mb-4" required>
-            <input type="text" name="preco" placeholder="Preço (ex: 24,00)" class="w-full border p-3 rounded mb-4" required>
-            <input type="text" name="img_url" placeholder="URL da Foto do Produto" class="w-full border p-3 rounded mb-4" required>
-            <input type="text" name="link_afiliado" placeholder="Seu Link de Afiliado" class="w-full border p-3 rounded mb-4" required>
-            <input type="text" name="categoria" placeholder="Categoria (ex: Tech)" class="w-full border p-3 rounded mb-4">
-            <button class="w-full bg-green-500 text-white font-bold py-4 rounded-lg hover:bg-green-600 uppercase">Salvar Produto</button>
+<body class="bg-slate-900 flex items-center justify-center min-h-screen p-6">
+
+    <div class="max-w-2xl w-full bg-slate-800 p-8 rounded-3xl shadow-2xl border border-slate-700">
+        
+        <div class="text-center mb-8">
+            <div class="bg-yellow-400 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-yellow-400/20">
+                <i class="fa-solid fa-plus text-slate-900 text-2xl"></i>
+            </div>
+            <h1 class="text-3xl font-black text-white uppercase italic tracking-wider">Nova Oferta</h1>
+            <p class="text-slate-400 mt-2 text-sm">Preencha os dados abaixo para publicar na vitrine.</p>
+        </div>
+
+        <form action="/adicionar" method="POST" class="space-y-5">
+            
+            <div>
+                <label class="block text-slate-300 text-xs font-bold uppercase mb-2 ml-1">Nome do Produto</label>
+                <input type="text" name="nome" placeholder="Ex: Mouse Gamer Wireless RGB" 
+                       class="w-full bg-slate-700 border border-slate-600 p-4 rounded-xl text-white focus:outline-none focus:border-yellow-400 transition" required>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                    <label class="block text-slate-300 text-xs font-bold uppercase mb-2 ml-1 text-red-400">Preço Original (De:)</label>
+                    <input type="text" name="preco_antigo" placeholder="Ex: 49.90" 
+                           class="w-full bg-slate-700 border border-slate-600 p-4 rounded-xl text-white focus:outline-none focus:border-yellow-400 transition">
+                </div>
+                <div>
+                    <label class="block text-slate-300 text-xs font-bold uppercase mb-2 ml-1 text-green-400">Preço Com Desconto (Por:)</label>
+                    <input type="text" name="preco" placeholder="Ex: 27.30" 
+                           class="w-full bg-slate-700 border border-slate-600 p-4 rounded-xl text-white focus:outline-none focus:border-yellow-400 transition" required>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-slate-300 text-xs font-bold uppercase mb-2 ml-1 text-blue-400">Link da Imagem (URL)</label>
+                <input type="text" name="img_url" placeholder="https://http2.mlstatic.com/..." 
+                       class="w-full bg-slate-700 border border-slate-600 p-4 rounded-xl text-white focus:outline-none focus:border-yellow-400 transition" required>
+            </div>
+
+            <div>
+                <label class="block text-slate-300 text-xs font-bold uppercase mb-2 ml-1 text-yellow-400">Seu Link de Afiliado</label>
+                <input type="text" name="link_afiliado" placeholder="https://mercadolivre.com/..." 
+                       class="w-full bg-slate-700 border border-slate-600 p-4 rounded-xl text-white focus:outline-none focus:border-yellow-400 transition" required>
+            </div>
+
+            <div>
+                <label class="block text-slate-300 text-xs font-bold uppercase mb-2 ml-1">Categoria</label>
+                <input type="text" name="categoria" placeholder="Ex: Gamer, Tech, Cozinha" 
+                       class="w-full bg-slate-700 border border-slate-600 p-4 rounded-xl text-white focus:outline-none focus:border-yellow-400 transition">
+            </div>
+
+            <button class="w-full bg-green-500 hover:bg-green-600 text-slate-900 font-black py-5 rounded-2xl uppercase tracking-widest transition-all shadow-lg shadow-green-500/20 active:scale-95">
+                Publicar Oferta Agora
+            </button>
         </form>
+
+        <div class="mt-8 text-center">
+            <a href="/admin-secreto-ofertas" class="text-slate-500 hover:text-yellow-400 text-sm transition uppercase font-bold tracking-tighter">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Voltar ao Painel
+            </a>
+        </div>
+
     </div>
+
 </body>
 </html>
