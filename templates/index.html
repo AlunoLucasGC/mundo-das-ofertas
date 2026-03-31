@@ -3,33 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mundo das Ofertas | Vitrine</title>
+    <title>Mundo das Ofertas | Os Melhores Achadinhos</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="bg-gray-100">
-    <header class="bg-yellow-400 shadow-md border-b-4 border-blue-600 text-center">
-        <h1 class="text-3xl font-black text-blue-800 uppercase italic p-6">Mundo das Ofertas</h1>
-        <p class="font-bold text-blue-900 pb-4">🔥 Melhores Achadinhos de Hoje!</p>
+<body class="bg-gray-50">
+
+    <header class="bg-gradient-to-r from-yellow-400 to-yellow-500 shadow-xl border-b-4 border-blue-700">
+        <div class="container mx-auto px-4 py-8 text-center">
+            <h1 class="text-4xl md:text-6xl font-black text-blue-900 tracking-tighter uppercase italic mb-2">
+                MUNDO DAS OFERTAS
+            </h1>
+            <div class="inline-block bg-blue-900 text-white px-4 py-1 rounded-full text-sm font-bold animate-bounce">
+                🚀 PROMOÇÕES ATUALIZADAS HOJE
+            </div>
+            <p class="mt-4 text-blue-900 font-medium">Os melhores produtos do Mercado Livre com os menores preços!</p>
+        </div>
     </header>
 
-    <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-        {% for p in produtos %}
-        <div class="bg-white p-4 rounded-xl shadow-md border border-gray-200 flex flex-col justify-between">
-            <div>
-                <img src="{{ p.img_url }}" class="w-full h-48 object-contain mb-4">
-                <h2 class="font-bold text-lg leading-tight">{{ p.nome }}</h2>
-                <p class="text-2xl font-black text-green-600 mt-2">R$ {{ p.preco }}</p>
-            </div>
-            
-            <div>
-                <a href="{{ p.link_afiliado }}" target="_blank" class="block bg-yellow-400 text-blue-900 text-center font-bold py-3 rounded-lg mt-4 hover:bg-yellow-500">
-                    VER NO MERCADO LIVRE
-                </a>
-
+    <main class="container mx-auto px-4 py-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {% for p in produtos %}
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden border border-gray-100 flex flex-col">
                 
+                <div class="relative h-64 bg-white p-4">
+                    <img src="{{ p.img_url }}" alt="{{ p.nome }}" class="w-full h-full object-contain">
+                    <span class="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                        OFERTA DO DIA
+                    </span>
+                </div>
+
+                <div class="p-5 flex-grow flex flex-col justify-between text-center">
+                    <div>
+                        <h2 class="text-gray-800 font-bold text-lg leading-tight h-12 overflow-hidden mb-2">
+                            {{ p.nome }}
+                        </h2>
+                        <div class="text-gray-400 text-sm line-through">De R$ {{ (p.preco|float * 1.2)|round(2) }}</div>
+                        <div class="text-3xl font-black text-green-600 mb-4">R$ {{ p.preco }}</div>
+                    </div>
+
+                    <a href="{{ p.link_afiliado }}" target="_blank" 
+                       class="flex items-center justify-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-extrabold py-4 rounded-xl transition-all active:scale-95 shadow-md">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        APROVEITAR AGORA
+                    </a>
+                </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
+    </main>
+
+    <footer class="bg-blue-900 text-white py-10 text-center mt-20">
+        <p class="font-bold">Mundo das Ofertas © 2026</p>
+        <p class="text-blue-300 text-sm mt-2 px-4">Os preços podem sofrer alterações conforme o estoque do lojista.</p>
+    </footer>
+
 </body>
 </html>
