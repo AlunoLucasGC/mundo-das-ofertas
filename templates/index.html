@@ -3,52 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mundo das Ofertas</title>
+    <title>Mundo das Ofertas | Os Melhores Achadinhos</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50 flex flex-col min-h-screen">
 
     <header class="bg-gradient-to-r from-yellow-400 to-yellow-500 shadow-xl border-b-4 border-blue-700">
         <div class="container mx-auto px-4 py-8 text-center">
             <h1 class="text-4xl md:text-6xl font-black text-blue-900 tracking-tighter uppercase italic mb-2">MUNDO DAS OFERTAS</h1>
-            <p class="text-blue-900 font-medium">Os melhores achadinhos em um só lugar!</p>
+            <div class="inline-block bg-blue-900 text-white px-4 py-1 rounded-full text-sm font-bold animate-bounce">
+                🚀 PROMOÇÕES ATUALIZADAS HOJE
+            </div>
+            <p class="mt-4 text-blue-900 font-medium italic text-sm md:text-base">Os melhores achadinhos em um só lugar!</p>
         </div>
     </header>
 
-    <nav class="bg-white shadow-sm border-b overflow-x-auto">
-        <div class="container mx-auto px-4 py-4 flex justify-center gap-4 min-w-max">
-            <a href="/" class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-bold hover:bg-blue-800 hover:text-white transition">Tudo</a>
+    <nav class="bg-white shadow-sm border-b overflow-x-auto sticky top-0 z-40">
+        <div class="container mx-auto px-4 py-4 flex justify-center gap-3 min-w-max">
+            <a href="/" class="bg-blue-800 text-white px-5 py-2 rounded-full font-bold shadow-md transition transform active:scale-95">Tudo</a>
             {% for cat in categorias %}
-            <a href="/?categoria={{ cat }}" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-full font-bold hover:bg-blue-700 hover:text-white transition">{{ cat }}</a>
+            <a href="/?categoria={{ cat }}" class="bg-gray-100 text-gray-700 px-5 py-2 rounded-full font-bold hover:bg-blue-700 hover:text-white transition shadow-sm uppercase text-xs">
+                {{ cat }}
+            </a>
             {% endfor %}
         </div>
     </nav>
 
-    <main class="container mx-auto px-4 py-10">
+    <main class="container mx-auto px-4 py-10 flex-grow">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {% for p in produtos %}
-            <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all overflow-hidden border border-gray-100 flex flex-col">
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 flex flex-col group">
                 
-                <div class="relative h-64 bg-white p-4">
-                    <img src="{{ p.img_url }}" alt="{{ p.nome }}" class="w-full h-full object-contain">
+                <div class="relative h-64 bg-white p-4 overflow-hidden">
+                    <img src="{{ p.img_url }}" alt="{{ p.nome }}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
+                    
                     {% if loop.first %}
-                    <span class="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse">OFERTA DO DIA</span>
+                    <span class="absolute top-2 right-2 bg-red-600 text-white text-xs font-black px-3 py-1 rounded-full shadow-lg animate-pulse">
+                        OFERTA DO DIA
+                    </span>
                     {% endif %}
                 </div>
 
-                <div class="p-5 flex-grow flex flex-col justify-between text-center">
+                <div class="p-5 flex-grow flex flex-col justify-between text-center border-t border-gray-50">
                     <div>
+                        <span class="text-[10px] font-bold text-blue-500 uppercase tracking-widest">{{ p.categoria }}</span>
                         <h2 class="text-gray-800 font-bold text-lg leading-tight h-12 overflow-hidden mb-2">{{ p.nome }}</h2>
                         
                         {% if p.preco_antigo %}
-                        <div class="text-gray-400 text-sm line-through">De R$ {{ p.preco_antigo }}</div>
+                        <div class="text-gray-400 text-sm line-through font-medium">De R$ {{ p.preco_antigo }}</div>
                         {% endif %}
                         
                         <div class="text-3xl font-black text-green-600 mb-4">R$ {{ p.preco }}</div>
                     </div>
 
-                    <a href="{{ p.link_afiliado }}" target="_blank" class="flex items-center justify-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-extrabold py-4 rounded-xl shadow-md uppercase">
+                    <a href="{{ p.link_afiliado }}" target="_blank" class="flex items-center justify-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-black py-4 rounded-xl transition-all active:scale-95 shadow-md uppercase tracking-tighter">
                         <i class="fa-solid fa-cart-shopping"></i> Aproveitar Agora
                     </a>
                 </div>
@@ -56,5 +65,54 @@
             {% endfor %}
         </div>
     </main>
-    </body>
+
+    <footer class="bg-blue-950 text-white border-t-8 border-yellow-400 mt-auto">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
+                
+                <div class="space-y-4">
+                    <h3 class="text-xl font-black text-yellow-400 uppercase italic tracking-wider">MUNDO DAS OFERTAS</h3>
+                    <p class="text-blue-200 text-sm leading-relaxed font-medium">
+                        O seu portal de achadinhos diários. Filtramos as melhores oportunidades do Mercado Livre e outras lojas para você economizar.
+                    </p>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-white uppercase border-b-2 border-yellow-400 inline-block pb-1">Dúvidas?</h3>
+                    <ul class="space-y-3 pt-2">
+                        <li>
+                            <a href="mailto:contato@mundodasofertas.com" class="flex items-center justify-center md:justify-start gap-2 hover:text-yellow-400 transition text-sm">
+                                <i class="fa-solid fa-envelope text-yellow-400"></i>
+                                <span>contato@mundodasofertas.com</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://wa.me/55991999836" target="_blank" class="flex items-center justify-center md:justify-start gap-2 hover:text-green-400 transition text-sm">
+                                <i class="fa-brands fa-whatsapp text-green-400 text-lg"></i>
+                                <span>Suporte via WhatsApp</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-white uppercase border-b-2 border-yellow-400 inline-block pb-1">Siga o Canal</h3>
+                    <div class="flex justify-center md:justify-start gap-6 text-3xl pt-2">
+                        <a href="https://www.youtube.com/@Ofertas-r7c" target="_blank" class="hover:text-red-500 transition"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@ofertasagora?lang=pt-BR" target="_blank" class="hover:text-pink-500 transition"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="#" class="hover:text-pink-400 transition"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-blue-900 mt-12 pt-8 text-center">
+                <p class="text-[10px] text-blue-400 font-bold uppercase tracking-[0.2em] mb-2">Mundo das Ofertas © 2026</p>
+                <p class="text-[9px] text-blue-500 italic font-light max-w-xl mx-auto">
+                    Aviso: Como afiliados, podemos receber uma comissão por compras feitas através dos nossos links, sem custo adicional para você. Isso ajuda a manter o site no ar!
+                </p>
+            </div>
+        </div>
+    </footer>
+
+</body>
 </html>
