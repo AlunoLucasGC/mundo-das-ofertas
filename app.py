@@ -4,9 +4,22 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-# --- CONFIGURAÇÃO DO BANCO DE DADOS ---
-basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'ofertas.db')
+# --- CONFIGURAÇÃO DO BANCO DE DADOS (Lógica Inteligente) ---
+
+# 1. Tenta buscar o link do banco de dados do Render (PostgreSQL)
+database_url = os.environ.get('DATABASE_URL')
+
+if database_url:
+    # O SQLAlchemy exige que o link comece com 'postgresql://' (com 'ql' no final)
+    # Mas o Render às vezes entrega como 'postgres://'. Aqui a gente corrige isso:
+    if database_url.startswith("postgres://"):
+        database_url = database_url.replace("postgres://", "postgresql://", 1)
+    app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+else:
+    # Se não houver link do Render (você está no seu PC), usa o SQLite local
+    basedir = os.path.abspath(os.path.dirname(__file__))
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'ofertas.db')
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -20,21 +33,18 @@ class Produto(db.Model):
     link_afiliado = db.Column(db.String(300), nullable=False)
     categoria = db.Column(db.String(50))
 
-# --- ROTAS (A LÓGICA DO SITE) ---
+# --- ROTAS ---
 
-# 1. Vitrine Pública: O que os seguidores veem
 @app.route('/')
 def index():
     lista_de_produtos = Produto.query.all()
     return render_template('index.html', produtos=lista_de_produtos)
 
-# 2. Painel Admin: Onde você gerencia tudo (Link: /admin-secreto-ofertas)
 @app.route('/admin-secreto-ofertas')
 def admin():
     lista_de_produtos = Produto.query.all()
     return render_template('admin.html', produtos=lista_de_produtos)
 
-# 3. Lógica para Adicionar: Recebe os dados do formulário no Admin
 @app.route('/adicionar', methods=['POST'])
 def adicionar():
     novo = Produto(
@@ -46,10 +56,8 @@ def adicionar():
     )
     db.session.add(novo)
     db.session.commit()
-    # Após adicionar, ele te joga de volta para o painel de controle
     return redirect(url_for('admin'))
 
-# 4. Lógica para Deletar: Remove o produto e volta para o Admin
 @app.route('/deletar/<int:id>')
 def deletar(id):
     produto_para_deletar = Produto.query.get_or_404(id)
@@ -60,7 +68,7 @@ def deletar(id):
     except:
         return "Houve um problema ao deletar o produto."
 
-# Cria o banco de dados e as tabelas (Importante para o Render)
+# Cria o banco e as tabelas automaticamente
 with app.app_context():
     db.create_all()
 
