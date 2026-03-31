@@ -71,7 +71,7 @@ def deletar(id):
 with app.app_context():
     # ATENÇÃO: Descomente a linha abaixo (tire o #) apenas para o PRÓXIMO push.
     # Isso vai apagar o banco antigo e criar o novo com os espaços maiores.
-    # db.drop_all() 
+    db.drop_all() 
     db.create_all()
 
 if __name__ == '__main__':
