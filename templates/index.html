@@ -38,7 +38,7 @@
                         <h2 class="text-gray-800 font-bold text-lg leading-tight h-12 overflow-hidden mb-2">
                             {{ p.nome }}
                         </h2>
-                        <div class="text-gray-400 text-sm line-through">De R$ {{ (p.preco|float * 1.2)|round(2) }}</div>
+                        <div class="text-gray-400 text-sm line-through">De R$ {{ (p.preco|float * 1.3)|round(2) }}</div>
                         <div class="text-3xl font-black text-green-600 mb-4">R$ {{ p.preco }}</div>
                     </div>
 
@@ -53,9 +53,58 @@
         </div>
     </main>
 
-    <footer class="bg-blue-900 text-white py-10 text-center mt-20">
-        <p class="font-bold">Mundo das Ofertas © 2026</p>
-        <p class="text-blue-300 text-sm mt-2 px-4">Os preços podem sofrer alterações conforme o estoque do lojista.</p>
+    <footer class="bg-blue-950 text-white mt-20 border-t-8 border-yellow-400">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
+                
+                <div>
+                    <h3 class="text-xl font-bold text-yellow-400 mb-4 uppercase italic">Mundo das Ofertas</h3>
+                    <p class="text-blue-200 text-sm leading-relaxed">
+                        Selecionamos os melhores achadinhos e promoções reais para você economizar tempo e dinheiro. 
+                        Todos os links levam a lojas oficiais e seguras.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-yellow-400 mb-4 uppercase italic">Dúvidas ou Parcerias?</h3>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="mailto:contato@mundodasofertas.com" class="flex items-center justify-center md:justify-start gap-2 hover:text-yellow-400 transition">
+                                <i class="fa-solid fa-envelope text-yellow-400"></i>
+                                <span>contato@mundodasofertas.com</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://wa.me/55991999836" target="_blank" class="flex items-center justify-center md:justify-start gap-2 hover:text-green-400 transition">
+                                <i class="fa-brands fa-whatsapp text-green-400 text-lg"></i>
+                                <span>Chamar no WhatsApp</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-yellow-400 mb-4 uppercase italic">Siga o Canal</h3>
+                    <div class="flex justify-center md:justify-start gap-6 text-2xl">
+                        <a href="https://www.youtube.com/@Ofertas-r7c" target="_blank" class="hover:text-red-500 transition" title="YouTube">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@ofertasagora?lang=pt-BR" target="_blank" class="hover:text-pink-500 transition" title="TikTok">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="#" class="hover:text-pink-400 transition" title="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="border-t border-blue-800 mt-10 pt-6 text-center text-xs text-blue-400">
+                <p>Mundo das Ofertas © 2026 - Todos os direitos reservados.</p>
+                <p class="mt-1 italic font-light">Nota: Como afiliados, podemos receber uma comissão por compras feitas através dos nossos links, sem custo adicional para você.</p>
+            </div>
+        </div>
     </footer>
 
 </body>
